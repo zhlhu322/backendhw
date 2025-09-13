@@ -22,3 +22,21 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+* table schema
+* User{
+*   userID
+*   name string
+*   missions[]
+*   manager boolean  
+* }
+* mission{
+*  userID
+*  name string
+*  description text
+*  startDate
+*  endDate
+*  priority
+*  state
+*  tag
+* }
