@@ -9,7 +9,7 @@ default: &default
   encoding: unicode
   pool: 5
   username: 0322e
-  password: 
+  password: ""
   host:  localhost
   timeout: 5000
 
