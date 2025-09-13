@@ -8,8 +8,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: postgres
-  password: postgres
+  username: 0322e
+  password: 
   host:  localhost
   timeout: 5000
 
@@ -27,8 +27,8 @@ development:
 test:
   adapter: postgresql
   database: test_db
-  username: postgres
-  password: postgres
+  username: 0322e
+  password: 
   host: localhost
   port: 5432
 
