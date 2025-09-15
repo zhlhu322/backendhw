@@ -8,9 +8,9 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: 0322e
-  password: ""
-  host:  localhost
+  username: <%= ENV.fetch("PGUSER", "postgres") %>
+  password: <%= ENV.fetch("PGPASSWORD", "postgres") %>
+  host:  <%= ENV.fetch("PGHOST", "localhost") %>
   timeout: 5000
 
 development:
@@ -27,8 +27,8 @@ development:
 test:
   <<: *default
   database: myapp_test
-  username: <%= ENV['PGUSER'] %>
-  password: <%= ENV['PGPASSWORD'] %>
+  username: <%= ENV.fetch("PGUSER", "postgres") %>
+  password: <%= ENV.fetch("PGPASSWORD", "postgres") %>
 
 
 production:
