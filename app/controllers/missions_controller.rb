@@ -1,6 +1,6 @@
 class MissionsController < ApplicationController
-  before_action :current_mission, only: [:show, :edit, :update, :destroy]
-  
+  before_action :current_mission, only: [ :show, :edit, :update, :destroy ]
+
   def index
     @missions = Mission.all
   end
