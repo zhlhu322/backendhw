@@ -27,8 +27,8 @@ class MissionsController < ApplicationController
 
   def update
     @mission = Mission.find(params[:id])
-    flash[:notice] = "Mission updated successfully!"
     if @mission.update(mission_params)
+      flash[:notice] = "Mission updated successfully!"
       redirect_to mission_path(@mission)
     else
       render :edit
