@@ -2,10 +2,6 @@ require 'spec_helper'
 require 'rails_helper'
 
 RSpec.describe "Missions", type: :system do
-  def create_mission(name:, description:)
-    let!(:mission) { Mission.create!(name: name, description: description) }
-  end
-
   before do
     driven_by(:rack_test)
   end
@@ -31,7 +27,7 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when editing an existing mission" do
-    create_mission(name: "Test Mission", description: "Old description")
+    let!(:mission) { Mission.create!(name: "Test Mission", description: "Old description") }
     before do
       visit "/missions"
       click_link "Test Mission"
@@ -46,7 +42,7 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when deleting a mission" do
-    create_mission(name: "Test Mission", description: "To be deleted")
+    let!(:mission) { Mission.create!(name: "Test Mission", description: "To be deleted") }
     before do
       visit "/missions"
       click_link "Test Mission"
