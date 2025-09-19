@@ -6,4 +6,6 @@
     <li><%= link_to mission.name ,mission_path(mission) %></li>
   <%end%>
 
+  <%= button_to "Create New Mission", new_mission_path, method: :get %>
+
 </ul>
