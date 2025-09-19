@@ -42,7 +42,7 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when deleting a mission" do
-    let!(:mission) { create(:mission, :toBeDeleted) }
+    let!(:mission) { create(:mission, :to_be_deleted) }
     before do
       visit "/missions"
       click_link mission.name
