@@ -27,10 +27,10 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when editing an existing mission" do
-    let!(:mission) { Mission.create!(name: "Test Mission", description: "Old description") }
+    let!(:mission) { create(:mission) }
     before do
       visit "/missions"
-      click_link "Test Mission"
+      click_link mission.name
       click_button "Edit Mission"
       fill_in "Name", with: "Updated Mission"
       fill_in "Description", with: "This is an updated description."
@@ -42,10 +42,10 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when deleting a mission" do
-    let!(:mission) { Mission.create!(name: "Test Mission", description: "To be deleted") }
+    let!(:mission) { create(:mission, :toBeDeleted) }
     before do
       visit "/missions"
-      click_link "Test Mission"
+      click_link mission.name
       click_button "Delete Mission"
     end
 
