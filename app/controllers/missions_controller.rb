@@ -3,6 +3,11 @@ class MissionsController < ApplicationController
 
   def index
     @missions = Mission.all
+    if params[:sort] == "time"
+      @missions = Mission.order(created_at: :desc)
+    else
+      @missions = Mission.order(:id)
+    end
   end
 
   def show

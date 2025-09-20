@@ -34,6 +34,7 @@ en:
     description: "Description"
     index:
       title: Mission List
+      sort_btn: Sort
     create:
       title: Create Mission
       btn: Create Mission

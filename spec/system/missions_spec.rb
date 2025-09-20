@@ -52,4 +52,24 @@ RSpec.describe "Missions", type: :system do
     it { is_expected.to have_content I18n.t("missions.delete.success") }
     it { is_expected.to have_content I18n.t("missions.index.title") } # Back to missions list
   end
+
+  context "when sorting missions" do
+    let!(:old_mission) { create(:mission, name: "old_mission", created_at: 3.weeks.ago) }
+    let!(:new_mission) { create(:mission, name: "new_mission", created_at: 1.day.ago) }
+    before do
+      visit "/missions"
+      select "依建立時間排序", from: "sort"
+      click_button I18n.t("missions.index.sort_btn")
+    end
+
+    it "shows the newest mission as the first item" do
+      first_mission = subject.all("ul#missions-list li").first.text
+      expect(first_mission).to include(new_mission.name)
+    end
+
+    it "shows the oldest mission as the last item" do
+      last_mission = subject.all("ul#missions-list li").last.text
+      expect(last_mission).to include(old_mission.name)
+    end
+  end
 end
