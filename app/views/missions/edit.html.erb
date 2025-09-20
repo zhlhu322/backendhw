@@ -1,18 +1,18 @@
-<h1> Edit Mission : <%= @mission.name %></h1>
+<h1> <%= t("missions.edit.title")+@mission.name %></h1>
 
 <%= form_with model: @mission do |f| %>
   <div class="field">
-    <%= f.label :name %>
+    <%= f.label :name, t("missions.name") %>
     <%= f.text_field :name %>
   </div>
 
   <div class = "field">
-    <%= f.label :description %>
+    <%= f.label :description, t("missions.description") %>
     <%= f.text_area :description %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit t("missions.edit.btn") %>
   </div>
 <% end %>
 
