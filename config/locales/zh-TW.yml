@@ -4,6 +4,7 @@
     description: 內容
     index:
       title: 任務列表
+      sort_btn: 排序
     create:
       title: 建立新任務
       btn: 建立任務
