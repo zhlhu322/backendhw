@@ -3,5 +3,5 @@
 
 <p><%= @mission.description %></p>
 
-<%= button_to "Edit Mission", edit_mission_path(@mission), method: :get %>
-<%= button_to "Delete Mission", mission_path(@mission), method: :delete %>
+<%= button_to t("missions.show.btn"), edit_mission_path(@mission), method: :get %>
+<%= button_to t("missions.delete.btn"), mission_path(@mission), method: :delete %>

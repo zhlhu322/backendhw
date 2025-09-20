@@ -29,3 +29,21 @@
 
 en:
   hello: "Hello world"
+  missions: 
+    name: "Name"
+    description: "Description"
+    index:
+      title: Mission List
+    create:
+      title: Create Mission
+      btn: Create Mission
+      success: Mission created successfully!
+    edit:
+      title: "Edit Mission:"
+      btn: Update Mission
+      success: Mission updated successfully!
+    show:
+      btn: Edit Mission
+    delete:
+      btn: Delete Mission
+      success: Mission deleted.

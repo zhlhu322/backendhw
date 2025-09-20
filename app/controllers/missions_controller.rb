@@ -15,7 +15,7 @@ class MissionsController < ApplicationController
   def create
     @mission = Mission.new(mission_params)
     if @mission.save
-      flash[:notice] = "Mission created successfully!"
+      flash[:notice] = t("missions.create.success")
       redirect_to mission_path(@mission)
     else
       render :new
@@ -27,7 +27,7 @@ class MissionsController < ApplicationController
 
   def update
     if @mission.update(mission_params)
-      flash[:notice] = "Mission updated successfully!"
+      flash[:notice] = t("missions.edit.success")
       redirect_to mission_path(@mission)
     else
       render :edit
@@ -36,7 +36,7 @@ class MissionsController < ApplicationController
 
   def destroy
     @mission.destroy
-    flash[:notice] = "Mission deleted."
+    flash[:notice] = t("missions.delete.success")
     redirect_to missions_path
   end
 
