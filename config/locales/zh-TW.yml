@@ -1,5 +1,6 @@
 "zh-TW":
   missions:
+    singular: "任務"
     name: 名稱
     description: 內容
     index:
@@ -18,3 +19,6 @@
     delete:
       btn: 刪除任務
       success: 任務刪除成功。
+  errors:
+    messages:
+      not_saved: "無法儲存 %{entity}，因為有 %{count} 個錯誤"

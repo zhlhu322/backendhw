@@ -30,6 +30,7 @@
 en:
   hello: "Hello world"
   missions: 
+    singular: "Mission"
     name: "Name"
     description: "Description"
     index:
@@ -48,3 +49,7 @@ en:
     delete:
       btn: Delete Mission
       success: Mission deleted.
+  errors:
+    messages:
+      not_saved: "Could not save %{entity} because of %{count} errors"
+      

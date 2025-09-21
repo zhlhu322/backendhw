@@ -23,7 +23,7 @@ class MissionsController < ApplicationController
       flash[:notice] = t("missions.create.success")
       redirect_to mission_path(@mission)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,7 @@ class MissionsController < ApplicationController
       flash[:notice] = t("missions.edit.success")
       redirect_to mission_path(@mission)
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

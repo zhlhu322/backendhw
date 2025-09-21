@@ -1,14 +1,32 @@
 <h1> <%= t("missions.create.title") %> </h1>
 
 <%= form_with model: @mission do |f| %>
+  <% if @mission.errors.any? %>
+    <div id="error_explanation">
+      <h3><%= t("errors.messages.not_saved", count: @mission.errors.count, entity: t("missions.singular")) %></h3>
+      <ul>
+        <% @mission.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <%end%>
+
   <div class="field">
     <%= f.label :name, t("missions.name") %>
+    <% if @mission.errors[:name].any? %>
+      <span class="error"><%= @mission.errors[:name].first %></span>
+    <% end %>
     <%= f.text_field :name %>
   </div>
 
   <div class = "field">
     <%= f.label :description, t("missions.description")%>
+    <% if @mission.errors[:description].any? %>
+      <span class="error"><%= @mission.errors[:description].first %></span>
+    <% end %>
     <%= f.text_area :description %>
+    
   </div>
 
   <div class="actions">
