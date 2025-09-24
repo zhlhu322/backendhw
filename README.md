@@ -5,7 +5,8 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version "3.4.2"
+* Rails version "8.0.2"
 
 * System dependencies
 
@@ -20,6 +21,8 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
+* Render web service
+* https://missionmanager.onrender.com/
 
 * ...
 
@@ -34,8 +37,8 @@ Things you may want to cover:
 *  userID
 *  name string
 *  description text
-*  startDate
-*  endDate
+*  creat_at datetime
+*  endDate datetime
 *  priority
 *  state
 *  tag
