@@ -3,4 +3,3 @@ class AddEndDateToMissions < ActiveRecord::Migration[8.0]
     add_column :missions, :end_date, :datetime
   end
 end
-
