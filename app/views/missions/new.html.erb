@@ -26,6 +26,13 @@
     <%end%>
   </div>
 
+  <div class = "field">
+    <%= f.label :end_date, t("missions.end_date") %>
+    <%= render_error(f, :end_date) do %>
+      <%= f.datetime_field :end_date %>
+    <%end%>
+  </div>
+
   <div class="actions">
     <%= f.submit t("missions.create.btn")%>
   </div>

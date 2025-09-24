@@ -33,6 +33,7 @@ en:
     singular: "Mission"
     name: "Name"
     description: "Description"
+    end_date: End Date
     index:
       title: Mission List
       sort_btn: Sort

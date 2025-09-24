@@ -20,6 +20,7 @@ RSpec.describe "Missions", type: :system do
       visit "/missions/new"
       fill_in I18n.t("missions.name"), with: "Test Mission"
       fill_in I18n.t("missions.description"), with: "This is a test mission."
+      fill_in I18n.t("missions.end_date"), with: (3.days.from_now).strftime("%Y-%m-%dT%H:%M")
       click_button I18n.t("missions.create.btn")
     end
     it { is_expected.to have_content I18n.t("missions.create.success") }
@@ -53,7 +54,7 @@ RSpec.describe "Missions", type: :system do
     it { is_expected.to have_content I18n.t("missions.index.title") } # Back to missions list
   end
 
-  context "when sorting missions" do
+  context "when sorting missions by creation date" do
     let!(:old_mission) { create(:mission, name: "old_mission", created_at: 3.weeks.ago) }
     let!(:new_mission) { create(:mission, name: "new_mission", created_at: 1.day.ago) }
     before do
@@ -70,6 +71,26 @@ RSpec.describe "Missions", type: :system do
     it "shows the oldest mission as the last item" do
       last_mission = subject.all("ul#missions-list li").last.text
       expect(last_mission).to include(old_mission.name)
+    end
+  end
+
+  context "when sorting missions by end date" do
+    let!(:mission1) { create(:mission, name: "mission1", end_date: 3.days.from_now) }
+    let!(:mission2) { create(:mission, name: "mission2", end_date: 1.day.from_now) }
+    before do
+      visit "/missions"
+      select "依到期時間排序", from: "sort"
+      click_button I18n.t("missions.index.sort_btn")
+    end
+
+    it "shows the mission with the nearest end date as the first item" do
+      first_mission = subject.all("ul#missions-list li").first.text
+      expect(first_mission).to include(mission2.name)
+    end
+
+    it "shows the mission with the farthest end date as the last item" do
+      last_mission = subject.all("ul#missions-list li").last.text
+      expect(last_mission).to include(mission1.name)
     end
   end
 end

@@ -3,6 +3,7 @@
     singular: "任務"
     name: 名稱
     description: 內容
+    end_date: 到期日
     index:
       title: 任務列表
       sort_btn: 排序
