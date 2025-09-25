@@ -3,7 +3,6 @@ FactoryBot.define do
     name { Faker::Lorem.sentence(word_count: 3) }
     description { Faker::Lorem.paragraph(sentence_count: 2) }
     end_date    { Time.current + rand(2..5).days }
-    created_at  { Time.current }
     state      { %w[pending in_progress completed].sample }
     priority { rand(0..2) }
 

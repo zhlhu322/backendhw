@@ -52,6 +52,11 @@ en:
     priority: "Priority"
     index:
       title: Mission List
+      sort_options:
+        id: "By ID"
+        created_at: "By Created At"
+        end_date: "By End Date"
+        priority: "By Priority"
       sort_btn: Sort
       search_btn: Search
       search_placeholder: "Search by name or state"

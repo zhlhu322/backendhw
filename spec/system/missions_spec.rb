@@ -165,14 +165,8 @@ RSpec.describe "Missions", type: :system do
       click_button I18n.t("missions.index.sort_btn")
     end
 
-    it "shows the highest priority mission as the first item" do
-      first_mission = subject.all("ul#missions-list li").first.text
-      expect(first_mission).to include(high_priority_mission.name)
-    end
+    it { is_expected.to have_css("ul li:first-child", text: "High Priority") }
 
-    it "shows the lowest priority mission as the last item" do
-      last_mission = subject.all("ul#missions-list li").last.text
-      expect(last_mission).to include(low_priority_mission.name)
-    end
+    it { is_expected.to have_css("ul li:last-child", text: "Low Priority") }
   end
 end
