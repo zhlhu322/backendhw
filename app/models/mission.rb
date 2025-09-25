@@ -17,6 +17,13 @@ class Mission < ApplicationRecord
 
   scope :controller_sort, ->(sort_key, direction = :DESC) {
     return all if sort_key.blank?
-    order(sort_key => direction)
+    case sort_key
+    when "created_at"
+      order(created_at: direction)
+    when "end_date"
+      order(:end_date)
+    else
+      order(:id)
+    end
   }
 end

@@ -2,7 +2,7 @@ class MissionsController < ApplicationController
   before_action :current_mission, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @missions = Mission.search(params[:search]).controller_sort(params[:sort], sort_direction(params[:sort]))
+    @missions = Mission.search(params[:search]).controller_sort(params[:sort])
   end
 
   def show
@@ -48,16 +48,5 @@ class MissionsController < ApplicationController
 
   def current_mission
     @mission = Mission.find(params[:id])
-  end
-
-  def sort_direction(sort_key)
-    case sort_key
-    when "created_at"
-      :desc
-    when "end_date"
-      :asc
-    else
-      :asc
-    end
   end
 end
