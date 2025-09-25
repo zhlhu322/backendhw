@@ -10,7 +10,13 @@ class Mission < ApplicationRecord
   }
 
   def self.search(query)
+    return all if query.blank?
     where("name ILIKE ?", "%#{query}%")
     .or(where(state: query))
   end
+
+  scope :controller_sort, ->(sort_key, direction = :DESC) {
+    return all if sort_key.blank?
+    order(sort_key => direction)
+  }
 end
