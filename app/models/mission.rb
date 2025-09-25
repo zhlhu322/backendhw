@@ -9,6 +9,12 @@ class Mission < ApplicationRecord
     completed: "completed"
   }
 
+  enum :priority, {
+    low: 0,
+    medium: 1,
+    high: 2
+  }
+
   def self.search(query)
     return all if query.blank?
     where("name ILIKE ?", "%#{query}%")
@@ -22,6 +28,8 @@ class Mission < ApplicationRecord
       order(created_at: direction)
     when "end_date"
       order(:end_date)
+    when "priority"
+      order(priority: :desc)
     else
       order(:id)
     end

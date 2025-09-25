@@ -5,6 +5,7 @@ FactoryBot.define do
     end_date    { Time.current + rand(2..5).days }
     created_at  { Time.current }
     state      { %w[pending in_progress completed].sample }
+    priority { rand(0..2) }
 
     trait :to_be_deleted do
       description { "A mission to be deleted." }

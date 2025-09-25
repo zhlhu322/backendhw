@@ -154,4 +154,25 @@ RSpec.describe "Missions", type: :system do
       end
     end
   end
+
+  context "when sorting missions by priority" do
+    let!(:low_priority_mission) { create(:mission, name: "Low Priority", priority: 0) }
+    let!(:medium_priority_mission) { create(:mission, name: "Medium Priority", priority: 1) }
+    let!(:high_priority_mission) { create(:mission, name: "High Priority", priority: 2) }
+    before do
+      visit "/missions"
+      select "依優先順序排序", from: "sort"
+      click_button I18n.t("missions.index.sort_btn")
+    end
+
+    it "shows the highest priority mission as the first item" do
+      first_mission = subject.all("ul#missions-list li").first.text
+      expect(first_mission).to include(high_priority_mission.name)
+    end
+
+    it "shows the lowest priority mission as the last item" do
+      last_mission = subject.all("ul#missions-list li").last.text
+      expect(last_mission).to include(low_priority_mission.name)
+    end
+  end
 end

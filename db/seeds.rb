@@ -10,7 +10,7 @@
 require 'factory_bot_rails'
 include FactoryBot::Syntax::Methods
 
-1000.times do
+30.times do
   create(:mission)
 end
 
