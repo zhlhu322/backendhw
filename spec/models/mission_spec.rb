@@ -32,4 +32,35 @@ RSpec.describe Mission, type: :model do
       end
     end
   end
+
+  context ".search" do
+    before do
+      create(:mission, name: "Learn Rails", state: "pending")
+      create(:mission, name: "Learn RSpec", state: "in_progress")
+      create(:mission, name: "Learn JavaScript", state: "completed")
+    end
+
+    it "returns missions matching the name query" do
+      results = Mission.search("Rails")
+      expect(results.count).to eq(1)
+      expect(results.first.name).to eq("Learn Rails")
+    end
+
+    it "returns missions matching the state query" do
+      results = Mission.search("completed")
+      expect(results.count).to eq(1)
+      expect(results.first.name).to eq("Learn JavaScript")
+    end
+
+    it "is case insensitive for name search" do
+      results = Mission.search("learn rails")
+      expect(results.count).to eq(1)
+      expect(results.first.name).to eq("Learn Rails")
+    end
+
+    it "returns an empty result when no matches are found" do
+      results = Mission.search("Python")
+      expect(results.count).to eq(0)
+    end
+  end
 end

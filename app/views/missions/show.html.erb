@@ -5,5 +5,7 @@
 
 <p><%= t("missions.end_date") %>: <%= @mission.end_date %></p>
 
+<p><%= t("missions.state") %>: <%= t("activerecord.attributes.mission.states.#{@mission.state}") %> </p>
+
 <%= button_to t("missions.show.btn"), edit_mission_path(@mission), method: :get %>
 <%= button_to t("missions.delete.btn"), mission_path(@mission), method: :delete %>

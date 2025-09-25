@@ -33,6 +33,13 @@
     <%end%>
   </div>
 
+  <div class = "field">
+    <%= f.label :state, t("missions.state") %>
+    <%= render_error(f, :state) do %>
+      <%= f.select :state, Mission.states.keys.map { |state| [t("activerecord.attributes.mission.states.#{state}"), state] } %>
+    <%end%>
+  </div>
+
   <div class="actions">
     <%= f.submit t("missions.create.btn")%>
   </div>

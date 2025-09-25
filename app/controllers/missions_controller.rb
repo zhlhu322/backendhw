@@ -3,12 +3,18 @@ class MissionsController < ApplicationController
 
   def index
     @missions = Mission.all
-    if params[:sort] == "created_at"
-      @missions = Mission.order(created_at: :desc)
-    elsif params[:sort] == "end_date"
-      @missions = Mission.order(end_date: :asc)
+
+    if params[:search].present?
+      @missions = Mission.search(params[:search])
+    end
+
+    case params[:sort]
+    when "created_at"
+      @missions = @missions.order(created_at: :desc)
+    when "end_date"
+      @missions = @missions.order(end_date: :asc)
     else
-      @missions = Mission.order(:id)
+      @missions = @missions.order(:id)
     end
   end
 
@@ -47,8 +53,10 @@ class MissionsController < ApplicationController
     redirect_to missions_path
   end
 
+  private
+
   def mission_params
-    params.require(:mission).permit(:name, :description, :end_date)
+    params.require(:mission).permit(:name, :description, :end_date, :state)
   end
 
   def current_mission

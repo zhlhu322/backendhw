@@ -3,6 +3,10 @@
 <%= form_with url: missions_path, method: :get, local: true do %>
   <%= select_tag :sort, options_for_select([["依 ID 排序", "id"], ["依建立時間排序", "created_at"], ["依到期時間排序","end_date"]], params[:sort]) %>
   <%= submit_tag t("missions.index.sort_btn") %>
+
+  <%= label_tag "搜尋任務" %>
+  <%= text_field_tag :search, params[:search], placeholder: t("missions.index.search_placeholder") %>
+  <%= submit_tag t("missions.index.search_btn") %>
 <% end %>
 
 <ul id="missions-list">
@@ -13,4 +17,7 @@
 
   <%= button_to t("missions.create.btn"), new_mission_path, method: :get %>
 
+  <% if @missions.empty? %>
+    <p><%= t("missions.index.no_results") %></p>
+  <% end %>
 </ul>
