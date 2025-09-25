@@ -3,8 +3,10 @@ class MissionsController < ApplicationController
 
   def index
     @missions = Mission.all
-    if params[:sort] == "time"
+    if params[:sort] == "created_at"
       @missions = Mission.order(created_at: :desc)
+    elsif params[:sort] == "end_date"
+      @missions = Mission.order(end_date: :asc)
     else
       @missions = Mission.order(:id)
     end
@@ -23,7 +25,7 @@ class MissionsController < ApplicationController
       flash[:notice] = t("missions.create.success")
       redirect_to mission_path(@mission)
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -35,7 +37,7 @@ class MissionsController < ApplicationController
       flash[:notice] = t("missions.edit.success")
       redirect_to mission_path(@mission)
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -46,7 +48,7 @@ class MissionsController < ApplicationController
   end
 
   def mission_params
-    params.require(:mission).permit(:name, :description)
+    params.require(:mission).permit(:name, :description, :end_date)
   end
 
   def current_mission
