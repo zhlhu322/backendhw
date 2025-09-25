@@ -40,6 +40,13 @@
     <%end%>
   </div>
 
+  <div class = "field">
+    <%= f.label :priority, t("missions.priority") %>
+    <%= render_error(f, :priority) do %>
+      <%= f.select :priority, Mission.priorities.keys.map { |priority| [t("activerecord.attributes.mission.priorities.#{priority}"), priority] } %>
+    <%end%>
+  </div>
+
   <div class="actions">
     <%= f.submit t("missions.create.btn")%>
   </div>

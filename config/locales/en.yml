@@ -39,14 +39,24 @@ en:
           pending: "Pending"
           in_progress: "In Progress"
           completed: "Completed"
+        priorities:
+          low: "Low"
+          medium: "Medium"
+          high: "High"
   missions: 
     singular: "Mission"
     name: "Name"
     description: "Description"
     end_date: End Date
     state: "State"
+    priority: "Priority"
     index:
       title: Mission List
+      sort_options:
+        id: "By ID"
+        created_at: "By Created At"
+        end_date: "By End Date"
+        priority: "By Priority"
       sort_btn: Sort
       search_btn: Search
       search_placeholder: "Search by name or state"

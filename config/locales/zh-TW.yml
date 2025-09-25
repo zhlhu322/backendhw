@@ -9,14 +9,24 @@
           pending: 待處理
           in_progress: 進行中
           completed: 已完成
+        priorities:
+          low: 低
+          medium: 中
+          high: 高
   missions:
     singular: "任務"
     name: 名稱
     description: 內容
     end_date: 到期日
     state: 狀態
+    priority: 優先順序
     index:
       title: 任務列表
+      sort_options:
+        id: 依 ID 排序
+        created_at: 依建立時間排序
+        end_date: 依到期時間排序
+        priority: 依優先順序排序
       sort_btn: 排序
       search_btn: 搜尋
       search_placeholder: "搜尋名稱或狀態"
