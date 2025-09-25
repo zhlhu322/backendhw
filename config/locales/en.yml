@@ -29,14 +29,28 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      mission:
+        name: "Name"
+        description: "Description"
+        end_date: "End Date"
+        states:
+          pending: "Pending"
+          in_progress: "In Progress"
+          completed: "Completed"
   missions: 
     singular: "Mission"
     name: "Name"
     description: "Description"
     end_date: End Date
+    state: "State"
     index:
       title: Mission List
       sort_btn: Sort
+      search_btn: Search
+      search_placeholder: "Search by name or state"
+      no_results: "No missions found"
     create:
       title: Create Mission
       btn: Create Mission

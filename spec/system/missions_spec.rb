@@ -93,4 +93,65 @@ RSpec.describe "Missions", type: :system do
       expect(last_mission).to include(mission1.name)
     end
   end
+
+  context "when searching for missions" do
+    let!(:mission1) { create(:mission, name: "Learn Rails", state: "pending") }
+    let!(:mission2) { create(:mission, name: "Learn RSpec", state: "in_progress") }
+    let!(:mission3) { create(:mission, name: "Learn JavaScript", state: "completed") }
+    before do
+      visit "/missions"
+    end
+
+    context "when searching by name" do
+      before do
+        fill_in I18n.t("missions.index.search_placeholder"), with: "Rails"
+        click_button I18n.t("missions.index.search_btn")
+      end
+      it "finds missions by name" do
+        expect(page).to have_content("Learn Rails")
+      end
+      it "does not show non-matching missions" do
+        expect(page).not_to have_content("Learn RSpec")
+        expect(page).not_to have_content("Learn JavaScript")
+      end
+    end
+
+    context "when searching by state" do
+      before do
+        fill_in I18n.t("missions.index.search_placeholder"), with: "completed"
+        click_button I18n.t("missions.index.search_btn")
+      end
+      it "finds missions by state" do
+        expect(page).to have_content("Learn JavaScript")
+      end
+      it "does not show non-matching missions" do
+        expect(page).not_to have_content("Learn Rails")
+        expect(page).not_to have_content("Learn RSpec")
+      end
+    end
+
+    context "when searching with mixed case" do
+      before do
+        fill_in I18n.t("missions.index.search_placeholder"), with: "rAiLs"
+        click_button I18n.t("missions.index.search_btn")
+      end
+      it "finds missions by name regardless of case" do
+        expect(page).to have_content("Learn Rails")
+      end
+      it "does not show non-matching missions" do
+        expect(page).not_to have_content("Learn RSpec")
+        expect(page).not_to have_content("Learn JavaScript")
+      end
+    end
+
+    context "when there are no matching results" do
+      before do
+        fill_in I18n.t("missions.index.search_placeholder"), with: "Python"
+        click_button I18n.t("missions.index.search_btn")
+      end
+      it "shows no results message" do
+        expect(page).to have_content(I18n.t("missions.index.no_results"))
+      end
+    end
+  end
 end
