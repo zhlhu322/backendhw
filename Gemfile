@@ -58,6 +58,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "capybara"
+  gem "pagy", "~> 9.4"
 end
 
 group :development do
@@ -71,3 +72,7 @@ group :test do
 end
 
 gem "pg", "~> 1.6"
+
+gem "tailwindcss-ruby", "~> 4.1"
+
+gem "tailwindcss-rails", "~> 4.3"
