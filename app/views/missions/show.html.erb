@@ -1,13 +1,17 @@
 
 <h1><%= @mission.name %></h1>
 
-<p><%= @mission.description %></p>
+<div class="w-2/5 flex flex-col bg-missionbg px-8 py-4 rounded-3xl mb-4 space-y-4">
+    <p class="form_title"><%= @mission.description %></p>
 
-<p><%= t("missions.end_date") %>: <%= @mission.end_date %></p>
+    <p class="form_title"><%= t("missions.end_date") %>: <%= @mission.end_date %></p>
 
-<p><%= t("missions.state") %>: <%= t("activerecord.attributes.mission.states.#{@mission.state}") %> </p>
+    <p class="form_title"><%= t("missions.state") %>: <%= t("activerecord.attributes.mission.states.#{@mission.state}") %> </p>
 
-<p><%= t("missions.priority") %>: <%= t("activerecord.attributes.mission.priorities.#{@mission.priority}") %> </p>
+    <p class="form_title"><%= t("missions.priority") %>: <%= t("activerecord.attributes.mission.priorities.#{@mission.priority}") %> </p>
+</div>
 
-<%= button_to t("missions.show.btn"), edit_mission_path(@mission), method: :get %>
-<%= button_to t("missions.delete.btn"), mission_path(@mission), method: :delete %>
+<div class="flex flex-row gap-8 ">
+    <%= button_to t("missions.show.btn"), edit_mission_path(@mission), method: :get , class:"button"%>
+    <%= button_to t("missions.delete.btn"), mission_path(@mission), method: :delete, class:"button" %>
+</div>

@@ -1,23 +1,37 @@
+
 <h1><%= t("missions.index.title") %></h1>
 
-<%= form_with url: missions_path, method: :get, local: true do %>
-  <%= select_tag :sort, options_for_select([[t("missions.index.sort_options.id"), "id"], [t("missions.index.sort_options.created_at"), "created_at"], [t("missions.index.sort_options.end_date"),"end_date"],[t("missions.index.sort_options.priority"),"priority"]], params[:sort]) %>
-  <%= submit_tag t("missions.index.sort_btn") %>
-
-  <%= label_tag "搜尋任務" %>
-  <%= text_field_tag :search, params[:search], placeholder: t("missions.index.search_placeholder") %>
-  <%= submit_tag t("missions.index.search_btn") %>
+<%= form_with url: missions_path, method: :get, local: true, 
+    html: { class:"w-2/5 flex flex-row justify-between mb-4" } do %>
+  <div class="flex flex-row gap-2">
+    <%= select_tag :sort, 
+        options_for_select([[t("missions.index.sort_options.id"), "id"], [t("missions.index.sort_options.created_at"), "created_at"], [t("missions.index.sort_options.end_date"),"end_date"],[t("missions.index.sort_options.priority"),"priority"]], params[:sort]),
+        class: "rounded-md outline-2 outline-accent/75 p-1 text-accent"
+        %>
+    <%= submit_tag t("missions.index.sort_btn"), class: "text-base button" %>
+  </div>
+  <div class="flex flex-row gap-2">
+    <%= text_field_tag :search, params[:search], placeholder: t("missions.index.search_placeholder"), class: "rounded-md outline-2 outline-accent/75 p-1 text-accent" %>
+    <%= submit_tag t("missions.index.search_btn"), class: "text-base button" %>
+  </div>
 <% end %>
 
-<ul id="missions-list">
-    
-  <% @missions.each do |mission|%>
-    <li><%= link_to mission.name ,mission_path(mission) %></li>
-  <%end%>
-
-  <%= button_to t("missions.create.btn"), new_mission_path, method: :get %>
+<div class="w-2/5 flex flex-col bg-missionbg px-8 py-4 rounded-3xl mb-4">
+  <ul id="missions-list">
+    <% @missions.each do |mission|%>
+      <li class="text-lg"><%= link_to mission.name ,mission_path(mission) %></li>
+    <%end%>
+  </ul>
 
   <% if @missions.empty? %>
-    <p><%= t("missions.index.no_results") %></p>
+    <p class="text-lg text-finished"><%= t("missions.index.no_results") %></p>
   <% end %>
-</ul>
+
+  <div class = "w-full flex justify-center pt-1 text-finished text-lg">
+    <%= pagy_nav(@pagy).html_safe %>
+  </div>
+</div>
+  
+
+
+<%= button_to t("missions.create.btn"), new_mission_path, method: :get, class: "text-xl button"%>
