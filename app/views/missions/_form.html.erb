@@ -1,62 +1,61 @@
-<div class="w-2/5 flex flex-col bg-missionbg px-8 py-4 rounded-3xl mb-6">
+<div class="w-full flex flex-col items-center justify-center my-4 ">
   <%= form_with model: @mission ,
-      html: { class:"w-full flex flex-col justify-between my-4 gap-y-4" } do |f| %>
-    <% if @mission.errors.any? %>
-      <div id="error_explanation">
-        <h3><%= t("errors.messages.not_saved", count: @mission.errors.count, entity: t("missions.singular")) %></h3>
-        <ul>
-          <% @mission.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <%end%>
+      html: { class: "w-2/5 flex flex-col items-center" } do |f| %>
 
-    <div class="field">
-      <%= f.label :name, t("missions.name") ,class:"form_title"  %>
-      <%= render_error(f, :name) do %>
-        <%= f.text_field :name , class: "rounded-md outline-2 outline-accent/75 p-1 text-accent"%>
+    <div class="w-full flex flex-col bg-missionbg px-8 py-4 rounded-3xl mb-6 gap-y-4">
+      <% if @mission.errors.any? %>
+        <div id="error_explanation">
+          <h3><%= t("errors.messages.not_saved", count: @mission.errors.count, entity: t("missions.singular")) %></h3>
+          <ul>
+            <% @mission.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <%end%>
-    </div>
 
-    <div class = "field">
-      <%= f.label :description, t("missions.description") ,class:"form_title" %>
-      <%= render_error(f, :description) do %>
-        <%= f.text_area :description, class: "rounded-md outline-2 outline-accent/75 p-1 text-accent" %>
-      <%end%>
-    </div>
-
-    <div class = "field">
-      <%= f.label :end_date, t("missions.end_date"),class:"form_title"  %>
-      <div class="rounded-md outline-2 outline-accent/75 p-1 text-accent w-fit">
-        <%= render_error(f, :end_date) do %>
-          <%= f.datetime_field :end_date %>
+      <div class="field">
+        <%= f.label :name, t("missions.name") ,class:"form_title"  %>
+        <%= render_error(f, :name) do %>
+          <%= f.text_field :name , class: "rounded-md outline-2 outline-accent/75 p-1 text-accent"%>
         <%end%>
+      </div>
+
+      <div class = "field">
+        <%= f.label :description, t("missions.description") ,class:"form_title" %>
+        <%= render_error(f, :description) do %>
+          <%= f.text_area :description, class: "rounded-md outline-2 outline-accent/75 p-1 text-accent" %>
+        <%end%>
+      </div>
+
+      <div class = "field">
+        <%= f.label :end_date, t("missions.end_date"),class:"form_title"  %>
+        <div class="rounded-md outline-2 outline-accent/75 p-1 text-accent w-fit">
+          <%= render_error(f, :end_date) do %>
+            <%= f.datetime_field :end_date %>
+          <%end%>
+        </div>
+      </div>
+
+      <div class = "field">
+        <%= f.label :state, t("missions.state") ,class:"form_title" %>
+        <div class="rounded-md outline-2 outline-accent/75 p-1 text-accent w-fit">
+          <%= render_error(f, :state) do %>
+            <%= f.select :state, Mission.states.keys.map { |state| [t("activerecord.attributes.mission.states.#{state}"), state] } %>
+          <%end%>
+        </div>
+      </div>
+
+      <div class = "field">
+        <%= f.label :priority, t("missions.priority"), class:"form_title" %>
+        <div class="rounded-md outline-2 outline-accent/75 p-1 text-accent w-fit">
+          <%= render_error(f, :priority) do %>
+            <%= f.select :priority, Mission.priorities.keys.map { |priority| [t("activerecord.attributes.mission.priorities.#{priority}"), priority] } %>
+          <%end%>
+        </div>
       </div>
     </div>
 
-    <div class = "field">
-      <%= f.label :state, t("missions.state") ,class:"form_title" %>
-      <div class="rounded-md outline-2 outline-accent/75 p-1 text-accent w-fit">
-        <%= render_error(f, :state) do %>
-          <%= f.select :state, Mission.states.keys.map { |state| [t("activerecord.attributes.mission.states.#{state}"), state] } %>
-        <%end%>
-      </div>
-    </div>
-
-    <div class = "field">
-      <%= f.label :priority, t("missions.priority"), class:"form_title" %>
-      <div class="rounded-md outline-2 outline-accent/75 p-1 text-accent w-fit">
-        <%= render_error(f, :priority) do %>
-          <%= f.select :priority, Mission.priorities.keys.map { |priority| [t("activerecord.attributes.mission.priorities.#{priority}"), priority] } %>
-        <%end%>
-      </div>
-    </div>
+    <%= f.submit submit_text, class: "flex items-center text-xl button w-fit"%>
+  <% end %>
 </div>
-
-
-<div class="actions">
-  <%= f.submit t("missions.create.btn"), class: "text-xl button"%>
-</div>
-
-<% end %>

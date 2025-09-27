@@ -165,8 +165,8 @@ RSpec.describe "Missions", type: :system do
       click_button I18n.t("missions.index.sort_btn")
     end
 
-    it { is_expected.to have_css("ul li:first-child", text: "High Priority") }
+    it { is_expected.to have_css("#missions-list li:first-child", text: "High Priority") }
 
-    it { is_expected.to have_css("ul li:last-child", text: "Low Priority") }
+    it { is_expected.to have_css("#missions-list li:last-child", text: "Low Priority") }
   end
 end

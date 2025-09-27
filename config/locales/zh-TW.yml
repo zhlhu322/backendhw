@@ -33,11 +33,11 @@
       no_results: "找不到符合的任務"
     create:
       title: 建立新任務
-      btn: 完成
+      btn: 建立任務
       success: 任務建立成功!
     edit:
       title: "編輯任務："
-      btn: 完成
+      btn: 更新任務
       success: 任務更新成功!
     show:
       btn: 編輯任務
