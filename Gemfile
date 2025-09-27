@@ -3,6 +3,10 @@ source "https://rubygems.org"
 # Ruby version
 ruby "3.4.2"
 
+gem "pg", "~> 1.6"
+gem "pagy", "~> 9.4"
+gem "tailwindcss-rails", "~> 4.3"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2", ">= 8.0.2.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -58,7 +62,6 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "capybara"
-  gem "pagy", "~> 9.4"
 end
 
 group :development do
@@ -70,6 +73,3 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "selenium-webdriver"
 end
-
-gem "pg", "~> 1.6"
-gem "tailwindcss-rails", "~> 4.3"
