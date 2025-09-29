@@ -2,6 +2,8 @@
 <h1><%= @mission.name %></h1>
 
 <div class="w-2/5 flex flex-col bg-missionbg px-8 py-4 rounded-3xl mb-4 space-y-4">
+    <p class="form_title"><%= t("missions.user") %>: <%= @mission.user&.name || t("missions.no_user") %></p>
+
     <p class="form_title"><%= @mission.description %></p>
 
     <p class="form_title"><%= t("missions.end_date") %>: <%= @mission.end_date %></p>

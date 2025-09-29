@@ -6,6 +6,8 @@ FactoryBot.define do
     state      { %w[pending in_progress completed].sample }
     priority { rand(0..2) }
 
+    association :user
+
     trait :to_be_deleted do
       description { "A mission to be deleted." }
     end

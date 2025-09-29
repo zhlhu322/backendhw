@@ -2,7 +2,7 @@ class MissionsController < ApplicationController
   before_action :current_mission, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @pagy, @missions = pagy(Mission.search(params[:search]).controller_sort(params[:sort]))
+    @pagy, @missions = pagy(mission_scope)
   end
 
   def show
@@ -41,6 +41,18 @@ class MissionsController < ApplicationController
   end
 
   private
+
+  def mission_scope
+    Mission.includes(:user).search(search_query).controller_sort(sort_option)
+  end
+
+  def search_query
+    params[:search]
+  end
+
+  def sort_option
+    params[:sort]
+  end
 
   def mission_params
     params.require(:mission).permit(:name, :description, :end_date, :state, :priority)
