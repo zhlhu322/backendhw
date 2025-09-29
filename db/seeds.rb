@@ -13,3 +13,9 @@ include FactoryBot::Syntax::Methods
 create_list(:mission, 30)
 create(:mission, name: "Rails 實作測試", state: "pending")
 create(:mission, name: "RSpec 功能測試", state: "in_progress")
+
+default_user = User.find_or_create_by!(email: "default@example.com") do |u|
+  u.name = "Default User"
+end
+
+Mission.where(user_id: nil).update_all(user_id: default_user.id)

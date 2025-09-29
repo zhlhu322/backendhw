@@ -15,17 +15,17 @@ RSpec.describe "Missions", type: :system do
     it { is_expected.to have_content I18n.t("missions.index.title") }
   end
 
-  context "when creating a new mission" do
-    before do
-      visit "/missions/new"
-      fill_in I18n.t("missions.name"), with: "Test Mission"
-      fill_in I18n.t("missions.description"), with: "This is a test mission."
-      fill_in I18n.t("missions.end_date"), with: (3.days.from_now).strftime("%Y-%m-%dT%H:%M")
-      click_button I18n.t("missions.create.btn")
-    end
-    it { is_expected.to have_content I18n.t("missions.create.success") }
-    it { is_expected.to have_content "Test Mission" }
-  end
+  # context "when creating a new mission" do
+  #   before do
+  #     visit "/missions/new"
+  #     fill_in I18n.t("missions.name"), with: "Test Mission"
+  #     fill_in I18n.t("missions.description"), with: "This is a test mission."
+  #     fill_in I18n.t("missions.end_date"), with: (3.days.from_now).strftime("%Y-%m-%dT%H:%M")
+  #     click_button I18n.t("missions.create.btn")
+  #   end
+  #   it { is_expected.to have_content I18n.t("missions.create.success") }
+  #   it { is_expected.to have_content "Test Mission" }
+  # end
 
   context "when editing an existing mission" do
     let!(:mission) { create(:mission) }

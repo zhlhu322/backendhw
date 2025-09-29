@@ -2,7 +2,7 @@ class MissionsController < ApplicationController
   before_action :current_mission, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @pagy, @missions = pagy(Mission.search(params[:search]).controller_sort(params[:sort]))
+    @pagy, @missions = pagy(Mission.includes(:user).search(params[:search]).controller_sort(params[:sort]))
   end
 
   def show

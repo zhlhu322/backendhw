@@ -45,6 +45,8 @@ en:
           high: "High"
   missions: 
     singular: "Mission"
+    user: "User"
+    no_user: "No User Assigned"
     name: "Name"
     description: "Description"
     end_date: End Date

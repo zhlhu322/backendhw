@@ -34,6 +34,7 @@ RSpec.describe Mission, type: :model do
   end
 
   context ".search" do
+    before(:each) { Mission.destroy_all }
     before do
       create(:mission, name: "Learn Rails", state: "pending")
       create(:mission, name: "Learn RSpec", state: "in_progress")

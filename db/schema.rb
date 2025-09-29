@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_25_135534) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_29_051557) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,6 +22,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_25_135534) do
     t.datetime "end_date"
     t.string "state", default: "pending", null: false
     t.integer "priority", default: 1, null: false
+    t.bigint "user_id", null: false
     t.index ["state"], name: "index_missions_on_state"
+    t.index ["user_id"], name: "index_missions_on_user_id"
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "missions", "users"
 end
