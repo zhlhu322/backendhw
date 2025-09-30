@@ -71,3 +71,5 @@
       not_saved: "無法儲存%{entity}，因為有%{count}個錯誤"
       blank: "不能為空"
       confirmation: "不符合"
+      taken: "已被使用"
+      too_short: "太短 (最少6個字元)"
