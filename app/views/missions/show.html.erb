@@ -1,19 +1,20 @@
 
-<h1><%= @mission.name %></h1>
+<h1><%= current_mission.name %></h1>
 
 <div class="w-2/5 flex flex-col bg-missionbg px-8 py-4 rounded-3xl mb-4 space-y-4">
-    <p class="form_title"><%= t("missions.user") %>: <%= @mission.user&.name || t("missions.no_user") %></p>
+    <p class="form_title"><%= t("missions.user") %>: <%= current_mission.user&.name || t("missions.no_user") %></p>
 
-    <p class="form_title"><%= @mission.description %></p>
+    <p class="form_title"><%= current_mission.description %></p>
 
-    <p class="form_title"><%= t("missions.end_date") %>: <%= @mission.end_date %></p>
+    <p class="form_title"><%= t("missions.end_date") %>: <%= current_mission.end_date %></p>
 
-    <p class="form_title"><%= t("missions.state") %>: <%= t("activerecord.attributes.mission.states.#{@mission.state}") %> </p>
+    <p class="form_title"><%= t("missions.state") %>: <%= t("activerecord.attributes.mission.states.#{current_mission.state}") %> </p>
 
-    <p class="form_title"><%= t("missions.priority") %>: <%= t("activerecord.attributes.mission.priorities.#{@mission.priority}") %> </p>
+    <p class="form_title"><%= t("missions.priority") %>: <%= t("activerecord.attributes.mission.priorities.#{current_mission.priority}") %> </p>
 </div>
 
 <div class="flex flex-row gap-8 ">
-    <%= button_to t("missions.show.btn"), edit_mission_path(@mission), method: :get , class:"button"%>
-    <%= button_to t("missions.delete.btn"), mission_path(@mission), method: :delete, class:"button" %>
+    <%= button_to t("missions.show.btn"), edit_mission_path(current_mission), method: :get , class:"text-xl button"%>
+    <%= button_to t("missions.delete.btn"), mission_path(current_mission), method: :delete, class:"text-xl button" %>
+    <%= button_to t("missions.show.show_list_btn"), missions_path, method: :get, class: "text-xl button"%>
 </div>

@@ -4,6 +4,11 @@ require 'rails_helper'
 RSpec.describe "Missions", type: :system do
   before do
     driven_by(:rack_test)
+    @user = create(:user)
+    visit sign_in_path
+    fill_in I18n.t("users.email"), with: @user.email
+    fill_in I18n.t("users.password"), with: "password"
+    click_button I18n.t("users.sign_in")
   end
 
   subject { page }
@@ -15,20 +20,20 @@ RSpec.describe "Missions", type: :system do
     it { is_expected.to have_content I18n.t("missions.index.title") }
   end
 
-  # context "when creating a new mission" do
-  #   before do
-  #     visit "/missions/new"
-  #     fill_in I18n.t("missions.name"), with: "Test Mission"
-  #     fill_in I18n.t("missions.description"), with: "This is a test mission."
-  #     fill_in I18n.t("missions.end_date"), with: (3.days.from_now).strftime("%Y-%m-%dT%H:%M")
-  #     click_button I18n.t("missions.create.btn")
-  #   end
-  #   it { is_expected.to have_content I18n.t("missions.create.success") }
-  #   it { is_expected.to have_content "Test Mission" }
-  # end
+  context "when creating a new mission" do
+    before do
+      visit "/missions/new"
+      fill_in I18n.t("missions.name"), with: "Test Mission"
+      fill_in I18n.t("missions.description"), with: "This is a test mission."
+      fill_in I18n.t("missions.end_date"), with: (3.days.from_now).strftime("%Y-%m-%dT%H:%M")
+      click_button I18n.t("missions.create.btn")
+    end
+    it { is_expected.to have_content I18n.t("missions.create.success") }
+    it { is_expected.to have_content "Test Mission" }
+  end
 
   context "when editing an existing mission" do
-    let!(:mission) { create(:mission) }
+    let!(:mission) { create(:mission, user: @user) }
     before do
       visit "/missions"
       click_link mission.name
@@ -43,7 +48,7 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when deleting a mission" do
-    let!(:mission) { create(:mission, :to_be_deleted) }
+    let!(:mission) { create(:mission, :to_be_deleted, user: @user) }
     before do
       visit "/missions"
       click_link mission.name
@@ -55,8 +60,8 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when sorting missions by creation date" do
-    let!(:old_mission) { create(:mission, name: "old_mission", created_at: 3.weeks.ago) }
-    let!(:new_mission) { create(:mission, name: "new_mission", created_at: 1.day.ago) }
+    let!(:old_mission) { create(:mission, name: "old_mission", created_at: 3.weeks.ago, user: @user) }
+    let!(:new_mission) { create(:mission, name: "new_mission", created_at: 1.day.ago, user: @user) }
     before do
       visit "/missions"
       select "依建立時間排序", from: "sort"
@@ -75,8 +80,8 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when sorting missions by end date" do
-    let!(:mission1) { create(:mission, name: "mission1", end_date: 3.days.from_now) }
-    let!(:mission2) { create(:mission, name: "mission2", end_date: 1.day.from_now) }
+    let!(:mission1) { create(:mission, name: "mission1", end_date: 3.days.from_now, user: @user) }
+    let!(:mission2) { create(:mission, name: "mission2", end_date: 1.day.from_now, user: @user) }
     before do
       visit "/missions"
       select "依到期時間排序", from: "sort"
@@ -95,9 +100,9 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when searching for missions" do
-    let!(:mission1) { create(:mission, name: "Learn Rails", state: "pending") }
-    let!(:mission2) { create(:mission, name: "Learn RSpec", state: "in_progress") }
-    let!(:mission3) { create(:mission, name: "Learn JavaScript", state: "completed") }
+    let!(:mission1) { create(:mission, name: "Learn Rails", state: "pending", user: @user) }
+    let!(:mission2) { create(:mission, name: "Learn RSpec", state: "in_progress", user: @user) }
+    let!(:mission3) { create(:mission, name: "Learn JavaScript", state: "completed", user: @user) }
     before do
       visit "/missions"
     end
@@ -156,9 +161,9 @@ RSpec.describe "Missions", type: :system do
   end
 
   context "when sorting missions by priority" do
-    let!(:low_priority_mission) { create(:mission, name: "Low Priority", priority: 0) }
-    let!(:medium_priority_mission) { create(:mission, name: "Medium Priority", priority: 1) }
-    let!(:high_priority_mission) { create(:mission, name: "High Priority", priority: 2) }
+    let!(:low_priority_mission) { create(:mission, name: "Low Priority", priority: 0, user: @user) }
+    let!(:medium_priority_mission) { create(:mission, name: "Medium Priority", priority: 1, user: @user) }
+    let!(:high_priority_mission) { create(:mission, name: "High Priority", priority: 2, user: @user) }
     before do
       visit "/missions"
       select "依優先順序排序", from: "sort"

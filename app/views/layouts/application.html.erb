@@ -23,8 +23,8 @@
   </head>
 
   <body class="w-full justify-center items-center bg-bgcolor">
-    <% if flash[:notice] %>
-      <p class="notice"><%= flash[:notice] %></p>
+    <% flash.each do |type,message| %>
+      <div class="flash"> <%= message %> </div>
     <% end %>
     <%= yield %>
   </body>

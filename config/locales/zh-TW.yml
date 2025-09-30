@@ -13,6 +13,11 @@
           low: 低
           medium: 中
           high: 高
+      user:
+        name: 名稱
+        email: 電子郵件
+        password: 密碼
+        password_confirmation: 確認密碼
   missions:
     singular: "任務"
     user: 使用者
@@ -33,6 +38,7 @@
       search_btn: 搜尋
       search_placeholder: "搜尋名稱或狀態"
       no_results: "找不到符合的任務"
+      logout_btn: 登出
     create:
       title: 建立新任務
       btn: 建立任務
@@ -43,9 +49,27 @@
       success: 任務更新成功!
     show:
       btn: 編輯任務
+      show_list_btn: 回到任務列表
     delete:
       btn: 刪除任務
       success: 任務刪除成功。
+  users:
+    singular: "使用者"
+    sign_up: "註冊"
+    sign_in: "登入"
+    name: 名稱
+    email: 電子郵件
+    password: 密碼
+    password_confirmation: 確認密碼
+    create:
+      title: 註冊
+      btn: 建立帳號
+      success: 帳號建立成功! 請登入。
+      failure: "無法建立帳號，請檢查以下錯誤。"
   errors:
     messages:
-      not_saved: "無法儲存 %{entity}，因為有 %{count} 個錯誤"
+      not_saved: "無法儲存%{entity}，因為有%{count}個錯誤"
+      blank: "不能為空"
+      confirmation: "不符合"
+      taken: "已被使用"
+      too_short: "太短 (最少6個字元)"
