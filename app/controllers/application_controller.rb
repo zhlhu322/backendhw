@@ -8,14 +8,11 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    if session[:user_id]
-      Current.user ||= User.find_by(id: session[:user_id])
-    end
+    Current.user ||= User.find_by(id: session[:user_id])
   end
 
   def require_login
-    unless Current.user
-      redirect_to sign_in_path, alert: "請先登入"
-    end
+    return if Current.user.present?
+    redirect_to sign_in_path, alert: "請先登入"
   end
 end

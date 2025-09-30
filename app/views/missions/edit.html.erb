@@ -1,4 +1,4 @@
-<h1> <%= t("missions.edit.title")+@mission.name %></h1>
+<h1> <%= t("missions.edit.title")+current_mission.name %></h1>
 
-<%= render "form", mission: @mission, submit_text: t("missions.edit.btn") %>
+<%= render "form", mission: current_mission, submit_text: t("missions.edit.btn") %>
 

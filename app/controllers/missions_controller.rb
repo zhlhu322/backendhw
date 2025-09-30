@@ -1,6 +1,5 @@
 class MissionsController < ApplicationController
   before_action :require_login
-  before_action :current_mission, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @pagy, @missions = pagy(mission_scope)
@@ -24,19 +23,20 @@ class MissionsController < ApplicationController
   end
 
   def edit
+    @mission = current_mission
   end
 
   def update
-    if @mission.update(mission_params)
+    if current_mission.update(mission_params)
       flash[:notice] = t("missions.edit.success")
-      redirect_to mission_path(@mission)
+      redirect_to mission_path(current_mission)
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @mission.destroy
+    current_mission.destroy
     flash[:notice] = t("missions.delete.success")
     redirect_to missions_path
   end
@@ -60,6 +60,7 @@ class MissionsController < ApplicationController
   end
 
   def current_mission
-    @mission = Current.user.missions.find(params[:id])
+    @mission = mission_scope.find(params[:id])
   end
+  helper_method :current_mission
 end
