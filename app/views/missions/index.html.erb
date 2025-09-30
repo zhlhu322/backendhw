@@ -33,5 +33,7 @@
 </div>
   
 
-
-<%= button_to t("missions.create.btn"), new_mission_path, method: :get, class: "text-xl button"%>
+<div class="flex flex-row gap-4">
+  <%= button_to t("missions.create.btn"), new_mission_path, method: :get, class: "text-xl button"%>
+  <%= button_to t("missions.index.logout_btn"), logout_path, method: :delete, class: "text-xl button"%>
+</div>

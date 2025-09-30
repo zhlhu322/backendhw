@@ -1,4 +1,5 @@
 class MissionsController < ApplicationController
+  before_action :require_login
   before_action :current_mission, only: [ :show, :edit, :update, :destroy ]
 
   def index
@@ -13,12 +14,12 @@ class MissionsController < ApplicationController
   end
 
   def create
-    @mission = Mission.new(mission_params)
+    @mission = Current.user.missions.new(mission_params)
     if @mission.save
       flash[:notice] = t("missions.create.success")
       redirect_to mission_path(@mission)
     else
-      render :new, status: :unprocessable_content
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +31,7 @@ class MissionsController < ApplicationController
       flash[:notice] = t("missions.edit.success")
       redirect_to mission_path(@mission)
     else
-      render :edit, status: :unprocessable_content
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -43,7 +44,7 @@ class MissionsController < ApplicationController
   private
 
   def mission_scope
-    Mission.includes(:user).search(search_query).controller_sort(sort_option)
+    Current.user.missions.includes(:user).search(search_query).controller_sort(sort_option)
   end
 
   def search_query
@@ -59,6 +60,6 @@ class MissionsController < ApplicationController
   end
 
   def current_mission
-    @mission = Mission.find(params[:id])
+    @mission = Current.user.missions.find(params[:id])
   end
 end

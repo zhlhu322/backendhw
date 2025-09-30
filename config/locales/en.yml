@@ -76,6 +76,18 @@ en:
     delete:
       btn: Delete Mission
       success: Mission deleted.
+  users:
+    singular: "User"
+    sign_up: "Sign Up"
+    name: "Name"
+    email: "Email"
+    password: "Password"
+    password_confirmation: "Password Confirmation"
+    create:
+      title: Sign Up
+      btn: Create Account
+      success: Account created successfully! Please log in.
+      failure: "Could not create account. Please check the errors below."
   errors:
     messages:
       not_saved: "Could not save %{entity} because of %{count} errors"
