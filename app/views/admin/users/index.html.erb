@@ -4,10 +4,9 @@
   <thead class="w-full">
     <tr class="flex flex-row gap-8">
       <th class="flex">ID</th>
-      <th class="flex"><%= t("users.name")%></th>
-      <th class="flex"><%= t("users.email")%></th>
-      <th class="flex"><%= t("users.missions_count")%></th>
-      <th class="flex"><%= t("users.index.actions")%></th>
+        <% %w[name email missions_count index.actions].each do |attr| %>
+          <th class="flex"><%= t("users.#{attr}")%></th>
+        <% end %>
     </tr>
   </thead>
   <tbody>

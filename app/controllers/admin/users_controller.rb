@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   def index
-    @pagy, @users = pagy(User.all.includes(:missions))
+    @pagy, @users = pagy(user_scope)
   end
 
   def new
@@ -38,11 +38,15 @@ class Admin::UsersController < Admin::BaseController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    flash[:notice] = t("users.delete.success") # not add yet
+    flash[:notice] = t("users.delete.success")
     redirect_to admin_users_path
   end
 
   private
+  def user_scope
+    User.all.includes(:missions)
+  end
+
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end

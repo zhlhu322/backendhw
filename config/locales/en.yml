@@ -43,6 +43,11 @@ en:
           low: "Low"
           medium: "Medium"
           high: "High"
+      user:
+        name: "name"
+        email: "email" 
+        password: "password" 
+        password_confirmation: "password confirmation" 
   missions: 
     singular: "Mission"
     user: "User"
@@ -63,6 +68,7 @@ en:
       search_btn: Search
       search_placeholder: "Search by name or state"
       no_results: "No missions found"
+      logout_btn: Log Out
     create:
       title: Create Mission
       btn: Create Mission
@@ -73,6 +79,7 @@ en:
       success: Mission updated successfully!
     show:
       btn: Edit Mission
+      show_list_btn: Mission List
     delete:
       btn: Delete Mission
       success: Mission deleted.
@@ -83,12 +90,28 @@ en:
     email: "Email"
     password: "Password"
     password_confirmation: "Password Confirmation"
+    missions_count: "Missions Count"
+    index:
+      title: User List
+      actions: Actions
+      missions_btn: View Missions
+      edit_btn: Edit User
+      delete_btn: Delete User
     create:
       title: Sign Up
+      admin_title: Create New User
       btn: Create Account
       success: Account created successfully! Please log in.
       failure: "Could not create account. Please check the errors below."
+    edit:
+      title: "Edit User:"
+      btn: Save Changes
+      success: User updated successfully!
   errors:
     messages:
       not_saved: "Could not save %{entity} because of %{count} errors"
+      blank: "can't be blank"
+      confirmation: "doesn't match confirmation"
+      taken: "has already been taken"
+      too_short: "is too short (minimum is %{count} characters)"
       
