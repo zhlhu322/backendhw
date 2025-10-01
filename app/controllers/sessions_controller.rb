@@ -7,15 +7,15 @@ class SessionsController < ApplicationController
 
     if user.present? && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to missions_path, notice: "已成功登入"
+      redirect_to missions_path, notice: t("sessions.create.success")
     else
-      flash[:notice] = "登入失敗，請檢查帳號密碼"
+      flash[:notice] = t("sessions.create.failure")
       render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to sign_in_path, notice: "已成功登出"
+    redirect_to sign_in_path, notice: t("sessions.destroy.success")
   end
 end

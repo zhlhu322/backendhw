@@ -34,9 +34,12 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
-    @user.destroy
-    flash[:notice] = t("users.delete.success")
-    redirect_to admin_users_path
+    if @user.destroy
+      flash[:notice] = t("users.delete.success")
+      redirect_to admin_users_path
+    else
+      redirect_to admin_users_path, alert: @user.errors.full_messages.to_sentence
+    end
   end
 
   private
@@ -45,7 +48,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end
 
   def set_user

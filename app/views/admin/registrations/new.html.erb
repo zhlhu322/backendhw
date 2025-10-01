@@ -1,7 +1,7 @@
-<h1><%=t("users.create.admin_title")%></h1>
+<h1>註冊管理者</h1>
 
 <div class="w-full flex flex-col items-center justify-center my-4 ">
-  <%=form_with model: @user, url: admin_users_path, 
+  <%=form_with model: @user, url: admin_registrations_path, 
      html: { class: "w-2/5 flex flex-col items-center" } do |f| %>
 
     <div class="w-full flex flex-col bg-missionbg px-8 py-4 rounded-3xl mb-6 gap-y-4">
@@ -31,11 +31,6 @@
         <%= f.label :password_confirmation, t("users.password_confirmation") ,class:"form_title" %>
         <%= f.password_field :password_confirmation , class: "rounded-md outline-2 outline-accent/75 p-1 text-accent"%>
       </div>
-      <div class="field">
-        <%= f.label :admin, t("users.role") ,class:"form_title" %>
-        <div class= "rounded-md outline-2 outline-accent/75 p-1 text-accent w-fit">
-          <%= f.select :admin, [[t("users.admin"), true], [t("users.general"), false]]%>
-        </div>
     </div>
     
     <%= f.submit t("users.create.btn"), class: "flex text-xl button w-fit" %>

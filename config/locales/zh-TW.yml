@@ -81,6 +81,19 @@
       title: "編輯使用者"
       btn: 編輯完成
       success: 使用者更新成功！
+    delete:
+      success: 已刪除使用者
+  base:
+    alert:
+      require_login: 請先登入
+      check_admin: 權限不足
+  sessions:
+    create:
+      success: 登入成功
+      failure: 登入失敗，請檢查帳號密碼
+      admin_failure: 權限不足或找無此使用者
+    destroy:
+      success: 已成功登出
   errors:
     messages:
       not_saved: "無法儲存%{entity}，因為有%{count}個錯誤"

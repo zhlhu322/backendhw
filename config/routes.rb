@@ -8,9 +8,8 @@ Rails.application.routes.draw do
         resources :missions, only: [ :index ]
       end
     end
-    get "sign_up", to: "registrations#new"
-    get "sign_in", to: "sessions#new"
-    post "sign_in", to: "sessions#create"
+    resources :registrations, only: [ :new, :create ]
+    resources :sessions, only: [ :new, :create ]
     delete "logout", to: "sessions#destroy"
   end
 

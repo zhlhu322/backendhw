@@ -1,14 +1,18 @@
 class Admin::BaseController < ApplicationController
-  # before_action :require_admin_login
-  # before_action :check_admin
+  before_action :require_admin_login
+  before_action :check_admin
 
-  # private
+  private
 
-  # def require_admin_login
-  #   redirect_to(sign_in_path, alert: "請先登入") unless Current.user.present
-  # end
+  def require_admin_login
+    return if Current.user.present?
+    flash[:alert] = t("base.alert.require_login")
+    redirect_to new_admin_session_path
+  end
 
-  # def check_admin
-  #   redirect_to(admin_login_path, alert: "請以管理員身分登入") unless current_user.admin
-  # end
+  def check_admin
+    return if current_user.admin
+    flash[:alert] = t("base.alert.check_admin")
+    redirect_to new_admin_session_path
+  end
 end
