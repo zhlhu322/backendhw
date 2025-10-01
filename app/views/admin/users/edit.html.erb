@@ -1,4 +1,4 @@
-<h1><%= t("users.edit.title") %></h1>
+<h1><%= t("users.edit.title") %>:<%= @user.name%></h1>
 
 <div class="w-full flex flex-col items-center justify-center my-4 ">
   <%=form_with model: [:admin, @user], 

@@ -62,6 +62,9 @@
     password: 密碼
     password_confirmation: 確認密碼
     missions_count: 任務數量
+    role: 身份
+    admin: 管理員
+    general: 會員
     index:
       title: 使用者列表
       actions: 操作
@@ -75,7 +78,7 @@
       success: 帳號建立成功!
       failure: "無法建立帳號，請檢查以下錯誤。"
     edit:
-      title: "編輯使用者："
+      title: "編輯使用者"
       btn: 編輯完成
       success: 使用者更新成功！
   errors:

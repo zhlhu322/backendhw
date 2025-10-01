@@ -91,6 +91,9 @@ en:
     password: "Password"
     password_confirmation: "Password Confirmation"
     missions_count: "Missions Count"
+    role: "Role"
+    admin: "Admin"
+    general: "Member"
     index:
       title: User List
       actions: Actions
@@ -104,7 +107,7 @@ en:
       success: Account created successfully! Please log in.
       failure: "Could not create account. Please check the errors below."
     edit:
-      title: "Edit User:"
+      title: "Edit User"
       btn: Save Changes
       success: User updated successfully!
   errors:

@@ -1,4 +1,5 @@
 class Admin::UsersController < Admin::BaseController
+  before_action :set_user, only: [ :show, :edit, :update, :destroy ]
   def index
     @pagy, @users = pagy(user_scope)
   end
@@ -8,7 +9,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def create
@@ -22,11 +22,9 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = t("users.edit.success")
       redirect_to admin_users_path
@@ -36,7 +34,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = t("users.delete.success")
     redirect_to admin_users_path
@@ -49,5 +46,9 @@ class Admin::UsersController < Admin::BaseController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
