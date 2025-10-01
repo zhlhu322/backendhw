@@ -1,0 +1,29 @@
+<h1><%= t("users.index.title")%></h1>
+
+<table class="4/5">
+  <thead class="w-full">
+    <tr class="flex flex-row gap-8">
+      <th class="flex">ID</th>
+        <% %w[name email missions_count index.actions].each do |attr| %>
+          <th class="flex"><%= t("users.#{attr}")%></th>
+        <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr class="flex flex-row gap-8">
+        <td class="flex"><%= user.id %></td>
+        <td class="flex"><%= user.name %></td>
+        <td class="flex"><%= user.email %></td>
+        <td class="flex"><%= user.missions.count %></td>
+        <td class="flex flex-row gap-2">
+          <%= button_to t("users.index.missions_btn"), admin_user_path(user),method: :get %> |
+          <%= button_to t("users.index.edit_btn"), edit_admin_user_path(user), method: :get%> |
+          <%= button_to t("users.index.delete_btn"), admin_user_path(user), method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+ 
+<%= button_to t("users.create.admin_title"), new_admin_user_path, method: :get, class: "text-xl button mt-4"%>

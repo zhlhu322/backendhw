@@ -1,0 +1,30 @@
+<h1><%= t("users.edit.title") %>:<%= @user.name%></h1>
+
+<div class="w-full flex flex-col items-center justify-center my-4 ">
+  <%=form_with model: [:admin, @user], 
+     html: { class: "w-2/5 flex flex-col items-center" } do |f| %>
+
+    <div class="w-full flex flex-col bg-missionbg px-8 py-4 rounded-3xl mb-6 gap-y-4">
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h3><%= t("errors.messages.not_saved", count: @user.errors.count, entity: t("users.singular")) %></h3>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <%end%>
+      <div class="field">
+        <%= f.label :name, t("users.name") ,class:"form_title" %>
+        <%= f.text_field :name ,class: "rounded-md outline-2 outline-accent/75 p-1 text-accent"%>
+      </div>
+      <div class="field">
+        <%= f.label :email, t("users.email") ,class:"form_title" %>
+        <%= f.text_field :email ,placeholder: "abc@example.com", class: "rounded-md outline-2 outline-accent/75 p-1 text-accent"%>
+      </div>
+    </div>
+    
+    <%= f.submit t("users.edit.btn"),class: "flex text-xl button w-fit" %>
+  <%end%>
+</div>
