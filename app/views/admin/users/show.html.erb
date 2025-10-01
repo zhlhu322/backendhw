@@ -1,0 +1,20 @@
+<h1><%= @user.name%>'s missions</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Mission ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.missions.each do |mission| %>
+      <tr>
+        <td><%= mission.id %></td>
+        <td><%= mission.name %></td>
+        <td><%= mission.description %></td>
+        <td><%= mission.state %></td>
+      </tr>
+    <% end %>
+  </tbody>

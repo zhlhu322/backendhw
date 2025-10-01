@@ -61,11 +61,23 @@
     email: 電子郵件
     password: 密碼
     password_confirmation: 確認密碼
+    missions_count: 任務數量
+    index:
+      title: 使用者列表
+      actions: 操作
+      missions_btn: 查看任務
+      edit_btn: 編輯使用者
+      delete_btn: 刪除使用者
     create:
       title: 註冊
+      admin_title: 建立新使用者
       btn: 建立帳號
-      success: 帳號建立成功! 請登入。
+      success: 帳號建立成功!
       failure: "無法建立帳號，請檢查以下錯誤。"
+    edit:
+      title: "編輯使用者："
+      btn: 編輯完成
+      success: 使用者更新成功！
   errors:
     messages:
       not_saved: "無法儲存%{entity}，因為有%{count}個錯誤"
