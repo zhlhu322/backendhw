@@ -3,9 +3,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.authenticate_user(params[:email], params[:password])
 
-    if user.present? && user.authenticate(params[:password])
+    if user
       session[:user_id] = user.id
       redirect_to missions_path, notice: t("sessions.create.success")
     else

@@ -5,7 +5,6 @@ class Admin::RegistrationsController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.admin = true
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = t("users.create.success")
@@ -17,6 +16,6 @@ class Admin::RegistrationsController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation).reverse_merge(admin: true)
   end
 end

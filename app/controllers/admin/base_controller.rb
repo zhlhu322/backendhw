@@ -1,6 +1,5 @@
 class Admin::BaseController < ApplicationController
-  before_action :require_admin_login
-  before_action :check_admin
+  before_action :require_admin_login, :check_admin
 
   private
 

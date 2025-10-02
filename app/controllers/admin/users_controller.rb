@@ -13,7 +13,7 @@ class Admin::UsersController < Admin::BaseController
 
   def create
     @user = User.new(user_params)
-    @user.admin = params[:user][:admin] if current_user.admin?
+    @user.admin = params[:user][:admin]
     if @user.save
       flash[:notice] = t("users.create.success")
       redirect_to admin_users_path
