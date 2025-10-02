@@ -3,7 +3,7 @@ class Admin::SessionsController < ApplicationController
   end
 
   def create
-    user = User.authenticate_admin(params[:email], params[:password])
+    user = User.authenticate(params[:email], params[:password], role_admin: true)
 
     if user
       session[:user_id] = user.id

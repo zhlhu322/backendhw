@@ -14,14 +14,10 @@ class User < ApplicationRecord
     end
   end
 
-  def self.authenticate_user(email, password)
+  def self.authenticate(email, password, role_admin: false)
     user = find_by(email: email)
-    user if user&.authenticate(password)
-  end
-
-  def self.authenticate_admin(email, password)
-    user = authenticate_user(email, password)
-    return user if user&.admin?
-    nil
+    return nil unless user&.authenticate(password)
+    return nil if role_admin && !user.admin?
+    user
   end
 end
