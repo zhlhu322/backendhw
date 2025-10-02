@@ -13,4 +13,15 @@ class User < ApplicationRecord
       throw(:abort)
     end
   end
+
+  def self.authenticate_user(email, password)
+    user = find_by(email: email)
+    user if user&.authenticate(password)
+  end
+
+  def self.authenticate_admin(email, password)
+    user = authenticate_user(email, password)
+    return user if user&.admin?
+    nil
+  end
 end
