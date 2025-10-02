@@ -1,17 +1,10 @@
 class Admin::BaseController < ApplicationController
-  before_action :require_admin_login, :check_admin
+  before_action :require_admin
 
   private
-
-  def require_admin_login
-    return if Current.user.present?
-    flash[:alert] = t("base.alert.require_login")
-    redirect_to new_admin_session_path
-  end
-
-  def check_admin
-    return if current_user.admin
-    flash[:alert] = t("base.alert.check_admin")
-    redirect_to new_admin_session_path
+  def require_admin
+    return (redirect_to new_admin_session_path, alert: t("base.alert.require_login")) unless Current.user.present?
+    return (redirect_to new_admin_session_path, alert: t("base.alert.check_admin")) unless current_user.admin?
+    nil
   end
 end
