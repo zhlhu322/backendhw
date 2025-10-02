@@ -4,4 +4,20 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password, length: { minimum: 6 }, allow_nil: true
+  before_destroy :ensure_an_admin_remains, if: :admin?
+
+  private
+  def ensure_an_admin_remains
+    if User.where(admin: true).count <= 1
+      errors.add(:base, "管理者數量不能為0")
+      throw(:abort)
+    end
+  end
+
+  def self.authenticate(email, password, role_admin: false)
+    user = find_by(email: email)
+    return nil unless user&.authenticate(password)
+    return nil if role_admin && !user.admin?
+    user
+  end
 end

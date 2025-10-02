@@ -28,7 +28,6 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
   activerecord:
     attributes:
       mission:
@@ -110,6 +109,19 @@ en:
       title: "Edit User"
       btn: Save Changes
       success: User updated successfully!
+    delete:
+      success: The user has been deleted.
+  base:
+    alert:
+      require_login: Please login first
+      check_admin: Permission denied
+  sessions:
+  create:
+    success: Login successful
+    failure: Login failed, please check your username and password
+    admin_failure: Insufficient permissions or user not found
+  destroy:
+    success: Logged out successfully
   errors:
     messages:
       not_saved: "Could not save %{entity} because of %{count} errors"

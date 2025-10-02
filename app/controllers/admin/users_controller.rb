@@ -13,6 +13,7 @@ class Admin::UsersController < Admin::BaseController
 
   def create
     @user = User.new(user_params)
+    @user.admin = params[:user][:admin]
     if @user.save
       flash[:notice] = t("users.create.success")
       redirect_to admin_users_path
@@ -34,9 +35,12 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
-    @user.destroy
-    flash[:notice] = t("users.delete.success")
-    redirect_to admin_users_path
+    if @user.destroy
+      flash[:notice] = t("users.delete.success")
+      redirect_to admin_users_path
+    else
+      redirect_to admin_users_path, alert: @user.errors.full_messages.to_sentence
+    end
   end
 
   private
