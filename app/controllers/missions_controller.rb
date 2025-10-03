@@ -13,7 +13,7 @@ class MissionsController < ApplicationController
   end
 
   def create
-    @mission = Current.user.missions.new(mission_params)
+    @mission = current_user.missions.new(mission_params)
 
     if @mission.save
       flash[:notice] = t("missions.create.success")
@@ -45,7 +45,7 @@ class MissionsController < ApplicationController
   private
 
   def mission_scope
-    Current.user.missions.search(search_query).controller_sort(sort_option)
+    current_user.missions.search(search_query, sort_option)
   end
 
   def search_query

@@ -22,14 +22,13 @@ class Mission < ApplicationRecord
     high: 2
   }
 
-  def self.search(query)
-    return all if query.blank?
-    base_query_ids = Mission.select(:id).where("missions.name ILIKE ?", "%#{query}%")
-                        .or(Mission.where(state: query)).map(&:id)
-    tags_query_ids = Mission.joins(:tags).where("tags.name ILIKE ?", "%#{query}%")
-                            .distinct.pluck(:id)
-    combined_ids = base_query_ids | tags_query_ids
-    Mission.where(id: combined_ids)
+  def self.search(query, sort_key = nil)
+    return all if query.blank? && sort_key.blank?
+    if query.blank?
+      return all.controller_sort(sort_key)
+    end
+    all.left_joins(:tags).where("missions.name ILIKE :query OR " + "missions.state ILIKE :query OR " + "tags.name ILIKE :query", query: "%#{query}%")
+                          .distinct.controller_sort(sort_key)
   end
 
   scope :controller_sort, ->(sort_key, direction = :DESC) {
