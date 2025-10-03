@@ -20,6 +20,7 @@ class Mission < ApplicationRecord
     return all if query.blank?
     where("name ILIKE ?", "%#{query}%")
     .or(where(state: query))
+    .or(where("? = ANY(tags)", query.to_s))
   end
 
   scope :controller_sort, ->(sort_key, direction = :DESC) {
@@ -35,4 +36,10 @@ class Mission < ApplicationRecord
       order(:id)
     end
   }
+
+  def add_tag(new_tag)
+    return tags if new_tag.blank?
+
+    (tags.to_a << new_tag.to_s.strip).uniq
+  end
 end

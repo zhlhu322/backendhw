@@ -11,6 +11,17 @@
     <p class="form_title"><%= t("missions.state") %>: <%= t("activerecord.attributes.mission.states.#{current_mission.state}") %> </p>
 
     <p class="form_title"><%= t("missions.priority") %>: <%= t("activerecord.attributes.mission.priorities.#{current_mission.priority}") %> </p>
+
+    <div class="flex flex-row items-cemter">
+        <p class="flex form_title">標籤：</p>
+        <div class = "flex flex-row gap-4 items-center">
+          <% if current_mission.tags.present?%>
+            <%  current_mission.tags.each do |tag|%>
+              <div class=" flex mission-tag">#<%= tag %></div>
+            <%end%>
+          <%end%>  
+        </div>
+    </div>
 </div>
 
 <div class="flex flex-row gap-8 ">

@@ -54,6 +54,22 @@
           <%end%>
         </div>
       </div>
+
+      <div class="flex flex-row">
+        <div class = "field flex">
+          <%= f.label :tags, "標籤" ,class:"form_title" %>
+          <%= f.text_field :tags, class: "rounded-md outline-2 outline-accent/75 p-1 text-accent" %>
+        </div>
+        <% if @mission.tags != nil %>
+          <%  @mission.tags.each do |tag|%>
+            <div class = "flex flex-row gap-2">
+              <%= tag %>
+            </div>
+          <%end%>
+        <%end%>
+      </div>
+      
+
     </div>
 
     <%= f.submit submit_text, class: "flex items-center text-xl button w-fit"%>
