@@ -55,21 +55,30 @@
         </div>
       </div>
 
-      <div class="flex flex-row">
-        <div class = "field flex">
-          <%= f.label :tags, "標籤" ,class:"form_title" %>
-          <%= f.text_field :tags, class: "rounded-md outline-2 outline-accent/75 p-1 text-accent" %>
-        </div>
-        <% if @mission.tags != nil %>
-          <%  @mission.tags.each do |tag|%>
-            <div class = "flex flex-row gap-2">
-              <%= tag %>
-            </div>
-          <%end%>
-        <%end%>
-      </div>
+      <%= f.label :tags, "標籤", class: "form_title" %>
       
+      <% @mission.taggings.each do |tagging| %>
+        <%= f.fields_for :taggings, tagging do |tagging_fields| %>
+          <div class="flex flex-row gap-2 mb-2 items-center">
+            <%= tagging_fields.hidden_field :id %>
+            <span class="bg-bgcolor text-finished text-base px-2.5 py-0.5 rounded-lg">
+              <%= tagging.tag.name %>
+            </span>
+            <label class="text-base">
+              <%= tagging_fields.check_box :_destroy %>
+              刪除
+            </label>
+          </div>
+        <% end %>
+      <% end %>
 
+      <%= f.fields_for :taggings, @mission.taggings.build do |tagging_fields| %>
+        <div class="flex flex-row gap-2 items-center">
+          <%= tagging_fields.text_field :tag_name, 
+            placeholder: "新增標籤",
+            class: "rounded-md outline-2 outline-accent/75 p-1 text-accent" %>
+        </div>
+      <% end %>
     </div>
 
     <%= f.submit submit_text, class: "flex items-center text-xl button w-fit"%>

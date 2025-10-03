@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_02_072950) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_03_065853) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,9 +23,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_02_072950) do
     t.string "state", default: "pending", null: false
     t.integer "priority", default: 1, null: false
     t.bigint "user_id", null: false
-    t.string "tags", default: [], array: true
     t.index ["state"], name: "index_missions_on_state"
     t.index ["user_id"], name: "index_missions_on_user_id"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "mission_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mission_id", "tag_id"], name: "index_taggings_on_mission_id_and_tag_id", unique: true
+    t.index ["mission_id"], name: "index_taggings_on_mission_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,4 +54,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_02_072950) do
   end
 
   add_foreign_key "missions", "users"
+  add_foreign_key "taggings", "missions"
+  add_foreign_key "taggings", "tags"
 end

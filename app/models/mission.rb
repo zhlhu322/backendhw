@@ -3,6 +3,12 @@ class Mission < ApplicationRecord
   validates :name, presence: { message: "can't be blank" }
   validates :description, presence: { message: "can't be blank" }
   validates :end_date, comparison: { greater_than: Time.current, message: "must be after the creation date" }
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
+  accepts_nested_attributes_for :taggings,
+    allow_destroy: true,
+    reject_if: proc { |attributes| attributes[:tag_name].blank? }
 
   enum :state, {
     pending: "pending",
@@ -18,9 +24,12 @@ class Mission < ApplicationRecord
 
   def self.search(query)
     return all if query.blank?
-    where("name ILIKE ?", "%#{query}%")
-    .or(where(state: query))
-    .or(where("? = ANY(tags)", query.to_s))
+    base_query_ids = Mission.select(:id).where("missions.name ILIKE ?", "%#{query}%")
+                        .or(Mission.where(state: query)).map(&:id)
+    tags_query_ids = Mission.joins(:tags).where("tags.name ILIKE ?", "%#{query}%")
+                            .distinct.pluck(:id)
+    combined_ids = base_query_ids | tags_query_ids
+    Mission.where(id: combined_ids)
   end
 
   scope :controller_sort, ->(sort_key, direction = :DESC) {
@@ -36,10 +45,4 @@ class Mission < ApplicationRecord
       order(:id)
     end
   }
-
-  def add_tag(new_tag)
-    return tags if new_tag.blank?
-
-    (tags.to_a << new_tag.to_s.strip).uniq
-  end
 end

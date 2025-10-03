@@ -13,8 +13,7 @@ class MissionsController < ApplicationController
   end
 
   def create
-    @mission = Current.user.missions.new(mission_params.except(:tags))
-    @mission.tags = @mission.add_tag(params[:mission][:tags])
+    @mission = Current.user.missions.new(mission_params)
 
     if @mission.save
       flash[:notice] = t("missions.create.success")
@@ -29,8 +28,7 @@ class MissionsController < ApplicationController
   end
 
   def update
-    all_tags = current_mission.add_tag(params[:mission][:tags])
-    if current_mission.update(mission_params.except(:tags).merge(tags: all_tags))
+    if current_mission.update(mission_params)
       flash[:notice] = t("missions.edit.success")
       redirect_to mission_path(current_mission)
     else
@@ -59,7 +57,8 @@ class MissionsController < ApplicationController
   end
 
   def mission_params
-    params.require(:mission).permit(:name, :description, :end_date, :state, :priority, tags: [])
+    params.require(:mission).permit(:name, :description, :end_date, :state, :priority,
+      taggings_attributes: [ :id, :tag_name, :_destroy ])
   end
 
   def current_mission
