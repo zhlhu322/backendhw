@@ -45,7 +45,7 @@ class MissionsController < ApplicationController
   private
 
   def mission_scope
-    Current.user.missions.includes(:user).search(search_query).controller_sort(sort_option)
+    Current.user.missions.search(search_query).controller_sort(sort_option)
   end
 
   def search_query
