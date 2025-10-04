@@ -74,7 +74,7 @@
 
       <%= f.fields_for :taggings, @mission.taggings.build do |tagging_fields| %>
         <div class="flex flex-row gap-2 items-center">
-          <%= tagging_fields.text_field :tag_name, 
+          <%= f.text_field :tag_name, 
             placeholder: "新增標籤",
             class: "rounded-md outline-2 outline-accent/75 p-1 text-accent" %>
         </div>

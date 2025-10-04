@@ -57,8 +57,8 @@ class MissionsController < ApplicationController
   end
 
   def mission_params
-    params.require(:mission).permit(:name, :description, :end_date, :state, :priority,
-      taggings_attributes: [ :id, :tag_name, :_destroy ])
+    params.require(:mission).permit(:name, :description, :end_date, :state, :priority, :tag_name,
+      taggings_attributes: [ :id, :_destroy ])
   end
 
   def current_mission
