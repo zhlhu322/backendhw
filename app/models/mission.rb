@@ -3,6 +3,10 @@ class Mission < ApplicationRecord
   validates :name, presence: { message: "can't be blank" }
   validates :description, presence: { message: "can't be blank" }
   validates :end_date, comparison: { greater_than: Time.current, message: "must be after the creation date" }
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+  attr_accessor :tag_name
+  before_save :process_tag_name
 
   enum :state, {
     pending: "pending",
@@ -16,10 +20,23 @@ class Mission < ApplicationRecord
     high: 2
   }
 
-  def self.search(query)
-    return all if query.blank?
-    where("name ILIKE ?", "%#{query}%")
-    .or(where(state: query))
+  def process_tag_name
+    name_to_use = self.tag_name.to_s.strip
+    return if name_to_use.blank?
+    tag_instance = Tag.find_or_create_by!(name: name_to_use)
+    self.tags << tag_instance unless self.tags.include?(tag_instance)
+  end
+
+  def self.search(query, sort_key = nil)
+    if query.blank? && sort_key.blank?
+      all
+    elsif query.blank?
+      all.controller_sort(sort_key)
+    else
+      query = "%#{query}%"
+      all.left_joins(:tags).where("missions.name ILIKE :q OR missions.state ILIKE :q OR tags.name ILIKE :q", q: query)
+                          .distinct.controller_sort(sort_key)
+    end
   end
 
   scope :controller_sort, ->(sort_key, direction = :DESC) {
