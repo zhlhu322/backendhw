@@ -5,8 +5,7 @@ class Mission < ApplicationRecord
   validates :end_date, comparison: { greater_than: Time.current, message: "must be after the creation date" }
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
-  attr_accessor :tag_name
-  before_save :process_tag_name
+  accepts_nested_attributes_for :taggings, allow_destroy: true
 
   enum :state, {
     pending: "pending",
@@ -20,11 +19,17 @@ class Mission < ApplicationRecord
     high: 2
   }
 
-  def process_tag_name
-    name_to_use = self.tag_name.to_s.strip
-    return if name_to_use.blank?
-    tag_instance = Tag.find_or_create_by!(name: name_to_use)
-    self.tags << tag_instance unless self.tags.include?(tag_instance)
+  # def process_tag_name
+  #   name_to_use = self.tag_name.to_s.strip
+  #   return if name_to_use.blank?
+  #   tag_instance = Tag.find_or_create_by!(name: name_to_use)
+  #   self.tags << tag_instance unless self.tags.include?(tag_instance)
+  # end
+
+  def add_tag_by_name(tag_name)
+    return unless tag_name.present?
+    tag_instance = Tag.find_or_create_by!(name: tag_name.strip)
+    tags << tag_instance if tags.exclude?(tag_instance)
   end
 
   def self.search(query, sort_key = nil)

@@ -58,7 +58,7 @@
       <%= f.label :tags, "標籤", class: "form_title" %>
       
       <% @mission.taggings.each do |tagging| %>
-        <%= f.fields_for :taggings, tagging do |tagging_fields| %>
+        <%= f.fields_for :taggings_attributes, tagging do |tagging_fields| %>
           <div class="flex flex-row gap-2 mb-2 items-center">
             <%= tagging_fields.hidden_field :id %>
             <span class="bg-bgcolor text-finished text-base px-2.5 py-0.5 rounded-lg">

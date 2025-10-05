@@ -15,9 +15,9 @@
     <div class="flex flex-row items-cemter">
         <p class="flex form_title">標籤：</p>
         <div class="flex flex-row gap-2 mb-2 items-center">
-          <% current_mission.taggings.each do |tagging| %>
+          <% current_mission.tags.each do |tag| %>
             <span class="bg-bgcolor text-finished text-base px-2.5 py-0.5 rounded-lg">
-              #<%= tagging.tag.name %>
+              #<%= tag.name%>
             </span>
           <% end %>
         </div>

@@ -13,9 +13,10 @@ class MissionsController < ApplicationController
   end
 
   def create
-    @mission = current_user.missions.new(mission_params)
+    @mission = current_user.missions.new(mission_params.except(:tag_name))
 
     if @mission.save
+      @mission.add_tag_by_name(mission_params[:tag_name])
       flash[:notice] = t("missions.create.success")
       redirect_to mission_path(@mission)
     else
@@ -28,10 +29,12 @@ class MissionsController < ApplicationController
   end
 
   def update
-    if current_mission.update(mission_params)
+    if current_mission.update(mission_params.except(:tag_name))
+      current_mission.add_tag_by_name(mission_params[:tag_name])
       flash[:notice] = t("missions.edit.success")
       redirect_to mission_path(current_mission)
     else
+      puts "Validation Failed: #{current_mission.errors.full_messages}"
       render :edit, status: :unprocessable_entity
     end
   end
