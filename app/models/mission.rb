@@ -28,13 +28,10 @@ class Mission < ApplicationRecord
   end
 
   def self.search(query, sort_key = nil)
-    if query.blank? && sort_key.blank?
-      all
-    elsif query.blank?
+    if query.blank?
       all.controller_sort(sort_key)
     else
-      query = "%#{query}%"
-      all.left_joins(:tags).where("missions.name ILIKE :q OR missions.state ILIKE :q OR tags.name ILIKE :q", q: query)
+      all.left_joins(:tags).where("missions.name ILIKE :q OR missions.state = :sq OR tags.name ILIKE :q", q: "%#{query}%", sq: query)
                           .distinct.controller_sort(sort_key)
     end
   end
