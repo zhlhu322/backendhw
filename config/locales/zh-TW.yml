@@ -101,3 +101,4 @@
       confirmation: "不符合"
       taken: "已被使用"
       too_short: "太短 (最少6個字元)"
+      server_error_500: 抱歉,內部伺服器發生錯誤

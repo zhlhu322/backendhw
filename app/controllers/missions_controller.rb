@@ -13,8 +13,10 @@ class MissionsController < ApplicationController
   end
 
   def create
-    @mission = Current.user.missions.new(mission_params)
+    @mission = current_user.missions.new(mission_params.except(:tag_name))
+
     if @mission.save
+      @mission.add_tag_by_name(mission_params[:tag_name])
       flash[:notice] = t("missions.create.success")
       redirect_to mission_path(@mission)
     else
@@ -27,10 +29,12 @@ class MissionsController < ApplicationController
   end
 
   def update
-    if current_mission.update(mission_params)
+    if current_mission.update(mission_params.except(:tag_name))
+      current_mission.add_tag_by_name(mission_params[:tag_name])
       flash[:notice] = t("missions.edit.success")
       redirect_to mission_path(current_mission)
     else
+      puts "Validation Failed: #{current_mission.errors.full_messages}"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -44,7 +48,7 @@ class MissionsController < ApplicationController
   private
 
   def mission_scope
-    Current.user.missions.includes(:user).search(search_query).controller_sort(sort_option)
+    current_user.missions.search(search_query, sort_option)
   end
 
   def search_query
@@ -56,7 +60,8 @@ class MissionsController < ApplicationController
   end
 
   def mission_params
-    params.require(:mission).permit(:name, :description, :end_date, :state, :priority)
+    params.require(:mission).permit(:name, :description, :end_date, :state, :priority, :tag_name,
+      taggings_attributes: [ :id, :_destroy ])
   end
 
   def current_mission
